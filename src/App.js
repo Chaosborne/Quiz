@@ -1,24 +1,23 @@
+import { useState } from "react";
 import "./index.scss";
 
 const questions = [
   {
     title: "React is ... ?",
-    variants: ["a library", "a framework", "an application"],
+    options: ["a library", "a framework", "an application"],
     correct: 0,
   },
   {
     title: "Component is ... ",
-    variants: ["an application", "a part of an application or a page", "that I don't know what is"],
+    options: ["an application", "a part of an application or a page", "that I don't know what is"],
     correct: 1,
   },
   {
     title: "what is JSX?",
-    variants: ["It's a simple HTML", "It's a function", "This is the same HTML, but with the ability to execute JS code"],
+    options: ["It's a simple HTML", "It's a function", "This is the same HTML, but with the ability to execute JS code"],
     correct: 2,
   },
 ];
-
-console.log();
 
 function Result() {
   return (
@@ -30,26 +29,30 @@ function Result() {
   );
 }
 
-function Game() {
+function Game({ question }) {
   return (
     <>
       <div className="progress">
         <div style={{ width: "50%" }} className="progress__inner"></div>
       </div>
-      <h1>What is useState?</h1>
+      <h1>{question.title}</h1>
       <ul>
-        <li>This is a function to store component data</li>
-        <li>This is a global state</li>
-        <li>This is when no one needs you</li>
+        {question.options.map((option) => (
+          <li key={option}>{option}</li>
+        ))}
       </ul>
     </>
   );
 }
 
 function App() {
+  const [step, setStep] = useState(0);
+
+  const question = questions[step];
+
   return (
     <div className="App">
-      <Game />
+      <Game question={question} />
       {/* <Result /> */}
     </div>
   );
