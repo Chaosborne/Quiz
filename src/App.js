@@ -2,12 +2,12 @@ import "./index.scss";
 
 const questions = [
   {
-    title: "React - is ... ?",
+    title: "React is ... ?",
     variants: ["a library", "a framework", "an application"],
     correct: 0,
   },
   {
-    title: "Component is - это ... ",
+    title: "Component is ... ",
     variants: ["an application", "a part of an application or a page", "that I don't know what is"],
     correct: 1,
   },
@@ -17,6 +17,8 @@ const questions = [
     correct: 2,
   },
 ];
+
+console.log();
 
 function Result() {
   return (
