@@ -29,7 +29,7 @@ function Result() {
   );
 }
 
-function Game({ question }) {
+function Game({ question, onClickOption }) {
   return (
     <>
       <div className="progress">
@@ -37,8 +37,10 @@ function Game({ question }) {
       </div>
       <h1>{question.title}</h1>
       <ul>
-        {question.options.map((option) => (
-          <li key={option}>{option}</li>
+        {question.options.map((option, index) => (
+          <li key={option} onClick={() => onClickOption(index)}>
+            {option}
+          </li>
         ))}
       </ul>
     </>
@@ -47,12 +49,15 @@ function Game({ question }) {
 
 function App() {
   const [step, setStep] = useState(0);
-
   const question = questions[step];
+
+  const onClickOption = (index) => {
+    console.log(step, index);
+  };
 
   return (
     <div className="App">
-      <Game question={question} />
+      <Game question={question} onClickOption={onClickOption} />
       {/* <Result /> */}
     </div>
   );
