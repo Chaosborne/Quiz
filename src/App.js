@@ -25,7 +25,6 @@ function Result({correct, resetGame}) {
     <div className="result">
       <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
       <h2>You guessed {correct} answers out of {questions.length}</h2>
-      {/* <button onClick={() => window.location.reload()}>Try again</button> */}
       <button onClick={()=> resetGame()}>Try again</button>
     </div>
   );
