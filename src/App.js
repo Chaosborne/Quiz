@@ -19,26 +19,30 @@ const questions = [
   },
 ];
 
-function Result() {
+// prettier-ignore
+function Result({correct}) {
   return (
     <div className="result">
       <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
-      <h2>You guessed 3 answers out of 10</h2>
-      <button>Try again</button>
+      <h2>You guessed {correct} answers out of {questions.length}</h2>
+      <button onClick={() => window.location.reload()}>Try again</button>
     </div>
   );
 }
 
-function Game({ question, onClickOption }) {
+// prettier-ignore
+function Game({ step, question, onClickOption }) {
+  const percentage = Math.round(step / questions.length * 100);
+
   return (
     <>
       <div className="progress">
-        <div style={{ width: "50%" }} className="progress__inner"></div>
+        <div style={{ width: `${percentage}%` }} className="progress__inner"></div>
       </div>
       <h1>{question.title}</h1>
       <ul>
         {question.options.map((option, index) => (
-          <li key={option} onClick={() => onClickOption(index)}>
+          <li key={option} onClick={()=>{onClickOption(index)}}>
             {option}
           </li>
         ))}
@@ -51,13 +55,17 @@ function App() {
   const [step, setStep] = useState(0);
   const question = questions[step];
 
+  const [correct, setCorrect] = useState(0);
+
   const onClickOption = (index) => {
-    console.log(step, index);
+    setStep(step + 1);
+    if (index === question.correct) setCorrect(correct + 1);
   };
 
   return (
     <div className="App">
-      <Game question={question} onClickOption={onClickOption} />
+      {step !== questions.length ? <Game step={step} question={question} onClickOption={onClickOption} /> : <Result correct={correct} />}
+
       {/* <Result /> */}
     </div>
   );
