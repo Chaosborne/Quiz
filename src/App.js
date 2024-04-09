@@ -20,12 +20,13 @@ const questions = [
 ];
 
 // prettier-ignore
-function Result({correct}) {
+function Result({correct, resetGame}) {
   return (
     <div className="result">
       <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
       <h2>You guessed {correct} answers out of {questions.length}</h2>
-      <button onClick={() => window.location.reload()}>Try again</button>
+      {/* <button onClick={() => window.location.reload()}>Try again</button> */}
+      <button onClick={()=> resetGame()}>Try again</button>
     </div>
   );
 }
@@ -62,13 +63,12 @@ function App() {
     if (index === question.correct) setCorrect(correct + 1);
   };
 
-  return (
-    <div className="App">
-      {step !== questions.length ? <Game step={step} question={question} onClickOption={onClickOption} /> : <Result correct={correct} />}
+  const resetGame = () => {
+    setStep(0);
+    setCorrect(0);
+  };
 
-      {/* <Result /> */}
-    </div>
-  );
+  return <div className="App">{step !== questions.length ? <Game step={step} question={question} onClickOption={onClickOption} /> : <Result correct={correct} resetGame={resetGame} />}</div>;
 }
 
 export default App;
